@@ -4,21 +4,27 @@
 
 const ThemeSwitcher = {
     currentStyle: 'minimal',
-    styles: ['minimal', 'game', 'tech', 'classic'],
+    styles: ['minimal', 'game', 'tech', 'classic', 'neon', 'gothic', 'forest', 'ocean', 'cosmic', 'pixel'],
     styleNames: {
         'minimal': '简约现代',
         'game': '游戏卡牌',
         'tech': '科技未来',
-        'classic': '中国古典'
+        'classic': '中国古典',
+        'neon': '霓虹赛博',
+        'gothic': '暗黑哥特',
+        'forest': '森林自然',
+        'ocean': '海洋深邃',
+        'cosmic': '星空宇宙',
+        'pixel': '复古像素'
     },
 
     init() {
         this.loadStyle();
-        this.bindThemeButtons();
     },
 
     loadStyle() {
-        const savedStyle = localStorage.getItem('gameStyle');
+        const config = ConfigManager.getConfig();
+        const savedStyle = config?.currentStyle || localStorage.getItem('gameStyle') || 'minimal';
         if (savedStyle && this.styles.includes(savedStyle)) {
             this.currentStyle = savedStyle;
         }
@@ -33,30 +39,15 @@ const ThemeSwitcher = {
         body.classList.add(`style-${styleName}`);
         this.currentStyle = styleName;
         localStorage.setItem('gameStyle', styleName);
-        this.updateButtons();
     },
 
-    bindThemeButtons() {
-        const buttons = document.querySelectorAll('.theme-btn');
-        buttons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const style = btn.dataset.style;
-                this.applyStyle(style);
-            });
-        });
-        this.updateButtons();
+    setStyle(styleName) {
+        if (this.styles.includes(styleName)) {
+            this.applyStyle(styleName);
+        }
     },
 
-    updateButtons() {
-        const buttons = document.querySelectorAll('.theme-btn');
-        buttons.forEach(btn => {
-            if (btn.dataset.style === this.currentStyle) {
-                btn.style.background = '#f97316';
-                btn.style.fontWeight = 'bold';
-            } else {
-                btn.style.background = 'transparent';
-                btn.style.fontWeight = 'normal';
-            }
-        });
+    getCurrentStyle() {
+        return this.currentStyle;
     }
 };

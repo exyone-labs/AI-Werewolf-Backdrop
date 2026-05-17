@@ -253,5 +253,5 @@ http-server -p 8000
 
 ---
 
-**开发者**: AI狼人杀项目组  
+**开发者**: [Exyone Developer](https://exyone.is-a.dev) 
 **最后更新**: 2026年5月
