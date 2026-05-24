@@ -136,6 +136,14 @@ const GameApp = {
         cancelConfigBtn.addEventListener('click', () => this.closeConfigModal());
         saveConfigBtn.addEventListener('click', () => this.saveConfig());
 
+        const saveGameConfigBtn = document.getElementById('saveGameConfigBtn');
+        if (saveGameConfigBtn) {
+            saveGameConfigBtn.addEventListener('click', () => {
+                this.saveConfig();
+                this.closeConfigModal();
+            });
+        }
+
         configTabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 configTabs.forEach(t => t.classList.remove('active', 'bg-white/20'));
